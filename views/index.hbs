@@ -1,2 +1,11 @@
 <h1>User Data</h1>
-<p>{{name}}</p>
+
+{{#if err}}
+  {{ err }}
+{{/if}}
+
+<p>{{name}} - {{age}} - {{smoker}}</p>
+
+{{#each dependants}}
+  <li>{{this}}</li>
+{{/each}}

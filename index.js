@@ -1,16 +1,23 @@
+require('dotenv').config()
+
 const hbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const path = require("path");
 const express = require("express");
-const app = express();
 const UserSchema = require("./lib/getUser");
 const UserModel = require("./model/user");
 const axios = require("axios");
+const bodyParser = require("body-parser");
 
+// server config
+const app = express();
+const port = process.env.PORT;
+
+// middleware
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(express.json({ extended: false }));
-
+// view config
 app.engine(
   ".hbs",
   hbs({
@@ -20,40 +27,39 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
-app.get("/", (req, res) => {
-  let data = axios
-    .post("/", {
-      name: "test",
-      age: 12,
-      smoker: true,
-      dependants: {
-        numberOfDependants: 1,
-        ageOfDependants: 14
-      }
-    })
-    .then(res => res)
-    .then(res => res.data)
-    .then(res => console.log(res.data))
-    .catch(e => e);
-  // return console.log(res.data);
-  res.render("index", {name: "test"});
+// routes
+app.get('/', (req, res) => {
+  let data = {
+    name: "test",
+    age: 45,
+    smoker: true,
+    dependants: {
+      numberOfDependants: 1,
+      ageOfDependants: 14,
+    }
+  };
+
+  axios
+    .post(`${process.env.SITEURL}/`, data)
+    .then(response => res.render('index', response.data))
+    .catch(err => res.render('index', err));
 });
 
-app.post("/", async (req, res) => {
-  console.log(req.body);
-  const user = new UserSchema({
-    name: req.body.name,
-    age: req.body.age,
-    smoker: req.body.smoker,
-    dependants: req.body.dependants
-  });
-  user.save();
-
-  res.send("user saved");
+app.post("/", (req, res) => {
+  try {
+    const user = new UserSchema({
+      name: req.body.name,
+      age: req.body.age,
+      smoker: req.body.smoker,
+      dependants: req.body.dependants
+    });
+    user.save();
+    return res.json(user);
+  } catch(err) {
+    return res.json(err);
+  };
 });
 
-const PORT = 5001;
-
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`server running on port ${port}`);
 });
