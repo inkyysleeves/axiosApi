@@ -4,8 +4,8 @@ const hbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const path = require("path");
 const express = require("express");
-const UserSchema = require("./lib/getUser");
-const UserModel = require("./model/user");
+const userModel = require("./models/userModel");
+const userSchema = require("./models/schemas/userSchema");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 
@@ -47,14 +47,16 @@ app.get('/', (req, res) => {
 
 app.post("/", (req, res) => {
   try {
-    const user = new UserSchema({
+    const User = mongoose.model('User', userSchema);
+    const newUser = new User({
       name: req.body.name,
       age: req.body.age,
       smoker: req.body.smoker,
       dependants: req.body.dependants
     });
-    user.save();
-    return res.json(user);
+
+    newUser.save();
+    return res.json(newUser);
   } catch(err) {
     return res.json(err);
   };
