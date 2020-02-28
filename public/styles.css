@@ -1,12 +1,16 @@
 body {
-    background-color: rgb(89, 151, 206);
+    background-color: rgb(141, 194, 241);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(127, 255, 249);
 }
 h1{
-    font-weight: 400;
+    font-weight: 700;
     text-transform: capitalize;
     text-transform: uppercase;
     text-decoration: underline;
+}
+h2{
+    font-weight:  1000;
 }
 div{
     border: 2px solid black;

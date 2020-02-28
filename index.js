@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 
 const hbs = require("express-handlebars");
 const mongoose = require("mongoose");
@@ -28,26 +28,26 @@ app.engine(
 app.set("view engine", ".hbs");
 
 // routes
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   let data = {
-    name: "john doe",
-    age: 45,
-    smoker: true,
+    name: "Code Nation",
+    age: 35,
+    smoker: false,
     dependants: {
-      numberOfDependants: 1,
-      ageOfDependants: 14,
+      numberOfDependants: 45,
+      ageOfDependants: 24
     }
   };
 
   axios
     .post(`${process.env.SITEURL}/`, data)
-    .then(response => res.render('index', response.data))
-    .catch(err => res.render('index', err));
+    .then(response => res.render("index", response.data))
+    .catch(err => res.render("index", err));
 });
 
 app.post("/", (req, res) => {
   try {
-    const User = mongoose.model('User', userSchema);
+    const User = mongoose.model("User", userSchema);
     const newUser = new User({
       name: req.body.name,
       age: req.body.age,
@@ -57,9 +57,9 @@ app.post("/", (req, res) => {
 
     newUser.save();
     return res.json(newUser);
-  } catch(err) {
+  } catch (err) {
     return res.json(err);
-  };
+  }
 });
 
 app.listen(port, () => {
