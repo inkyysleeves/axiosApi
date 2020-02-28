@@ -1,0 +1,15 @@
+body {
+    background-color: rgb(89, 151, 206);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+h1{
+    font-weight: 400;
+    text-transform: capitalize;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+div{
+    border: 2px solid black;
+    flex-direction: column;
+    width: 300px;
+}

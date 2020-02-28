@@ -30,7 +30,7 @@ app.set("view engine", ".hbs");
 // routes
 app.get('/', (req, res) => {
   let data = {
-    name: "test",
+    name: "john doe",
     age: 45,
     smoker: true,
     dependants: {

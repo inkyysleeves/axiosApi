@@ -1,11 +1,13 @@
-<h1>User Data</h1>
+<h1>User Data.</h1>
 
 {{#if err}}
   {{ err }}
 {{/if}}
+<div>
+<h2>User Name: {{name}}</h2>
+<h2>User Age: {{age}}</h2>
+<h2>Smoker true or false: {{smoker}}</h2>
+<h3>Number of dependants: {{dependants.numberOfDependants}}</h3>
+<h3>Age of dependants: {{dependants.ageOfDependants}}</h3>
+</div>
 
-<p>{{name}} - {{age}} - {{smoker}}</p>
-
-{{#each dependants}}
-  <li>{{this}}</li>
-{{/each}}

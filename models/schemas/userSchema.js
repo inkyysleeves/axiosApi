@@ -7,7 +7,7 @@ const userSchema = new Schema({
   smoker: Boolean,
   dependants: {
     numberOfDependants: Number,
-    ageOfDependant: Number
+    ageOfDependants: Number
   }
 });
 
